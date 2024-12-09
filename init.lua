@@ -615,7 +615,7 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      gopls_opts = {
+      local gopls_opts = {
         settings = {
           usePlaceholders = true,
           completeUnimported = true,
@@ -632,7 +632,7 @@ require('lazy').setup({
       }
       gopls_gobin = vim.fn.expand '$HOME/go/bin/gopls'
       if vim.fn.executable(gopls_gobin) == 1 then
-        gopls_opts.cmd = gopls_gobin
+        gopls_opts.cmd = { gopls_gobin }
       end
 
       local servers = {
