@@ -12,7 +12,10 @@ return {
   {
     'vim-test/vim-test',
     init = function()
-      vim.g['test#strategy'] = 'make_bang'
+      vim.g['test#strategy'] = 'neovim_sticky'
+      vim.g['test#neovim_sticky#reopen_window'] = '1'
+
+      vim.keymap.set('n', '<leader>ts', '<cmd>TestNearest<cr>', { desc = 'Test [S]ingle test under cursor' })
     end,
   },
   {

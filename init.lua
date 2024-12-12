@@ -164,11 +164,19 @@ vim.opt.scrolloff = 10
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', 'Y', 'Y')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>ej', function()
+  vim.diagnostic.jump { diagnostic = vim.diagnostic.get_next(), float = true }
+end)
 
-vim.keymap.set('n', '<leader>ff', '<Cmd>Ex %:h<Cr>', { desc = 'Explore current buffer dir' })
+vim.keymap.set('n', '<leader>ek', function()
+  vim.diagnostic.jump { diagnostic = vim.diagnostic.get_prev(), float = true }
+end)
+
+-- vim.keymap.set('n', '<leader>ff', '<Cmd>Ex %:h<Cr>', { desc = 'Explore current buffer dir' })
 vim.keymap.set('n', '<leader>bb', '<Cmd>bprev<CR>', { desc = 'Pevious buffer' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -193,6 +201,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>wg', require('golden-ratio').autoresize, { desc = '[G]olden ratio' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -323,7 +332,7 @@ require('lazy').setup({
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[T]est' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
@@ -386,11 +395,11 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          mappings = {
+            i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -438,6 +447,10 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>ff', function()
+        builtin.find_files { cwd = vim.fn.expand '%:h' }
+      end)
     end,
   },
 
@@ -633,7 +646,7 @@ require('lazy').setup({
           },
         },
       }
-      gopls_gobin = vim.fn.expand '$HOME/go/bin/gopls'
+      local gopls_gobin = vim.fn.expand '$HOME/go/bin/gopls'
       if vim.fn.executable(gopls_gobin) == 1 then
         gopls_opts.cmd = { gopls_gobin }
       end
