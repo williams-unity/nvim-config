@@ -42,3 +42,4 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 vim.keymap.set('n', '<leader>wg', require('golden-ratio').autoresize, { desc = '[G]olden ratio' })
+vim.keymap.set('n', '<C-w>g', require('golden-ratio').autoresize, { desc = '[G]olden ratio' })
