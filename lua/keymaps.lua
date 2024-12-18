@@ -43,3 +43,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>wg', require('golden-ratio').autoresize, { desc = '[G]olden ratio' })
 vim.keymap.set('n', '<C-w>g', require('golden-ratio').autoresize, { desc = '[G]olden ratio' })
+
+vim.keymap.set('n', '<leader>lf', '<cmd>source %<CR>', { desc = 'Source lua file' })
+vim.keymap.set('n', '<leader>lx', ':.lua<CR>', { desc = 'Source lua line' })
+vim.keymap.set('v', '<leader>lx', ':lua<CR>', { desc = 'Source lua in selection' })
