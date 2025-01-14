@@ -17,7 +17,7 @@ vim.keymap.set('n', '<leader>ek', function()
 end)
 
 -- vim.keymap.set('n', '<leader>ff', '<Cmd>Ex %:h<Cr>', { desc = 'Explore current buffer dir' })
-vim.keymap.set('n', '<leader>bb', '<Cmd>bprev<CR>', { desc = 'Pevious buffer' })
+vim.keymap.set('n', '<leader>bb', '<Cmd>b#<CR>', { desc = 'Pevious buffer' })
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
