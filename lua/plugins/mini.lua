@@ -15,7 +15,13 @@ return { -- Collection of various small independent plugins/modules
     -- - sd'   - [S]urround [D]elete [']quotes
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
-    require('mini.jump2d').setup()
+    require('mini.jump2d').setup {
+      hooks = {
+        before_jump = function()
+          vim.cmd "normal! m'"
+        end,
+      },
+    }
 
     vim.keymap.set({ 'n', 'v' }, '<leader>jw', function()
       print 'Press key: '

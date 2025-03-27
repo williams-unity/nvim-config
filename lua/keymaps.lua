@@ -9,11 +9,19 @@ vim.keymap.set('n', 'Y', 'Y')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>ej', function()
-  vim.diagnostic.jump { diagnostic = vim.diagnostic.get_next(), float = true }
+  local diag = vim.diagnostic.get_next()
+  if not diag then
+    return
+  end
+  vim.diagnostic.jump { diagnostic = diag, float = true }
 end)
 
 vim.keymap.set('n', '<leader>ek', function()
-  vim.diagnostic.jump { diagnostic = vim.diagnostic.get_prev(), float = true }
+  local diag = vim.diagnostic.get_prev()
+  if not diag then
+    return
+  end
+  vim.diagnostic.jump { diagnostic = diag, float = true }
 end)
 
 -- vim.keymap.set('n', '<leader>ff', '<Cmd>Ex %:h<Cr>', { desc = 'Explore current buffer dir' })
@@ -47,3 +55,10 @@ vim.keymap.set('n', '<C-w>g', require('golden-ratio').autoresize, { desc = '[G]o
 vim.keymap.set('n', '<leader>lf', '<cmd>source %<CR>', { desc = 'Source lua file' })
 vim.keymap.set('n', '<leader>lx', ':.lua<CR>', { desc = 'Source lua line' })
 vim.keymap.set('v', '<leader>lx', ':lua<CR>', { desc = 'Source lua in selection' })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    vim.keymap.set('n', 'ga', 'oif err != nil {\nreturn\n}<Esc>kA ', { buffer = true, desc = 'Insert Go error handling' })
+  end,
+})
