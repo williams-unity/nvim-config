@@ -89,6 +89,9 @@ local term_command = function(cur_win, win, _, cmd, args)
   args = args or {}
   local buf = vim.api.nvim_win_get_buf(win)
   vim.api.nvim_set_current_win(cur_win)
+  vim.api.nvim_set_option_value('modifiable', true, { buf = buf })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, {})
+  vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
 
   local chan = vim.api.nvim_open_term(buf, {})
   local line_count = vim.api.nvim_buf_line_count(buf)

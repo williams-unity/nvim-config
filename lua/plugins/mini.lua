@@ -31,8 +31,8 @@ return { -- Collection of various small independent plugins/modules
       local upper = c:upper()
       local cclass = '[' .. lower .. upper .. ']'
 
-      local startline = MiniJump2d.gen_pattern_spotter('^' .. cclass, 'start')
-      local inline = MiniJump2d.gen_pattern_spotter('[%s%p]()' .. cclass .. '[^%s%p]*', 'none')
+      local startline = MiniJump2d.gen_spotter.pattern('^' .. cclass, 'start')
+      local inline = MiniJump2d.gen_spotter.pattern('[%s%p]()' .. cclass .. '[^%s%p]*', 'none')
       MiniJump2d.start {
         spotter = function(linenum, args)
           local a = startline(linenum, args)
